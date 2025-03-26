@@ -11,6 +11,7 @@ export class AuthService {
     constructor(private userService: UserService, private jwtService: JwtService){}
 
     async register(signupData: SignupDto){
+
         // Check Already Exist User
         const user = await this.userService.findUserByEmail(signupData.email);
         if(user)
@@ -44,4 +45,10 @@ export class AuthService {
             throw new UnauthorizedException("Invalid Credentials");
         return this.generateToken(user);
     }
+
+
+    async getUser(email: string){
+        return await this.userService.findUserByEmail(email);
+    }
+    
 }
